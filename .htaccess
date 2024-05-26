@@ -1,0 +1,17 @@
+# Protección contra listado de directorios
+Options -Indexes
+
+# Evitar que se muestren las extensiones de archivo en las URLs
+Options -MultiViews
+
+# Redirigir las solicitudes desde URLs con extensión .html a URLs sin extensión
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^([^\.]+)$ $1.html [NC,L]
+
+# Restricción de acceso a archivos sensibles
+<FilesMatch "(^\.htaccess|\.htpasswd|config\.php)">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
